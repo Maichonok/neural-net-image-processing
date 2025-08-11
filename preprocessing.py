@@ -31,3 +31,8 @@ plt.imshow(cropped_image)
 plt.title("Image after CenterCrop")
 plt.axis("off")
 plt.show()
+
+# 4. Convert the cropped image to a tensor
+to_tensor = transforms.ToTensor()
+tensor_image = to_tensor(cropped_image)
+print("Tensor size after ToTensor:", tensor_image.shape)  # Expected: torch.Size([3, 224, 224])
