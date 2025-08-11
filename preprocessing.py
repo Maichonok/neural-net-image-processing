@@ -21,3 +21,13 @@ plt.imshow(resized_image)
 plt.title("Image after Resize")
 plt.axis("off")
 plt.show()
+
+# 3. Center crop the image to 224x224 pixels
+center_crop = transforms.CenterCrop(224)
+cropped_image = center_crop(resized_image)
+print("Image size after CenterCrop:", cropped_image.size)
+
+plt.imshow(cropped_image)
+plt.title("Image after CenterCrop")
+plt.axis("off")
+plt.show()
