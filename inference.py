@@ -8,10 +8,9 @@ imagenet_labels_url = "https://raw.githubusercontent.com/anishathalye/imagenet-s
 classes = requests.get(imagenet_labels_url).json()
 
 # Initialize an empty ResNet18 model (without pretrained weights)
-model = models.resnet18(pretrained=False)
-
+model = models.resnet18(weights=None)
 # Load pretrained weights from a local file
-model.load_state_dict(torch.load('/models/resnet18_weights.pth'))
+model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
 
 # Set the model to evaluation mode for inference (disables dropout, batchnorm updates, etc.)
 model.eval()
@@ -52,7 +51,7 @@ def predict_top3(image):
 
 # Example usage of the predict_top3 function:
 # Load an image from disk and convert it to RGB format
-image = Image.open("/data/ball.jpg").convert('RGB')
+image = Image.open("./data/ball.jpg").convert('RGB')
 
 # Get the top-3 predicted classes with probabilities
 predictions = predict_top3(image)
