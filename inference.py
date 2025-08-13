@@ -50,30 +50,19 @@ def predict_top3(image):
     
     return results
 
-# Open the image and convert it to RGB format
-image = Image.open("./data/sneakers.jpg").convert("RGB")
+def crop_corner(image_path):
+    image = Image.open(image_path).convert('RGB')  # Ensure 3 channels
+    cropped = image.crop((image.width - 224, image.height - 224, image.width, image.height))
+    return cropped
 
-# Apply Gaussian blur with radius=10 to the image
-blurred_image = image.filter(ImageFilter.GaussianBlur(radius=10))
+# Crop the image and perform prediction on the cropped part
+cropped = crop_corner("./data/sneakers.jpg")
+predictions = predict_top3(cropped)
+print("Object in the corner:", predictions)
 
-# Compare predictions for the original image and the blurred image
-original_pred = predict_top3(image)
-blurred_pred = predict_top3(blurred_image)
-
-print("Original:", original_pred)
-print("With noise:", blurred_pred)
-
-# Display the original and blurred images side by side
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
-
-axes[0].imshow(image)
-axes[0].set_title("Original Image")
-axes[0].axis("off")
-
-axes[1].imshow(blurred_image)
-axes[1].set_title("Image with GaussianBlur (radius=10)")
-axes[1].axis("off")
-
-plt.suptitle("Comparison of Original and Blurred Images", fontsize=16)
-plt.tight_layout()
+# Display the cropped image with a title, hide axis ticks
+import matplotlib.pyplot as plt
+plt.imshow(cropped)
+plt.title("Cropped image (bottom-right corner 224x224)")
+plt.axis("off")
 plt.show()
