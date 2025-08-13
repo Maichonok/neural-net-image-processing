@@ -1,7 +1,8 @@
 import torch
 from torchvision import models, transforms
-from PIL import Image
+from PIL import Image, ImageFilter
 import requests
+import matplotlib.pyplot as plt
 
 # Load ImageNet class labels from a URL (JSON format)
 imagenet_labels_url = "https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json"
@@ -49,14 +50,26 @@ def predict_top3(image):
     
     return results
 
-# Example usage of the predict_top3 function:
-# Load an image from disk and convert it to RGB format
-image = Image.open("./data/ball.jpg").convert('RGB')
+# Open the image and convert it to RGB format
+image = Image.open("./data/sneakers.jpg").convert("RGB")
 
-# Get the top-3 predicted classes with probabilities
-predictions = predict_top3(image)
+# Apply Gaussian blur with a strong blur effect (radius=15)
+blurred_image = image.filter(ImageFilter.GaussianBlur(radius=15))
 
-print("Top-3 predictions:")
-# Print each prediction
-for pred in predictions:
-    print(pred)
+# Get the top 3 predictions for the original and blurred images
+original_pred = predict_top3(image)
+blurred_pred = predict_top3(blurred_image)
+
+print("Original:", original_pred)
+print("With noise:", blurred_pred)
+
+# Display the original and blurred images side by side
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+axes[0].imshow(image)
+axes[0].set_title("Original Image")
+axes[0].axis("off")
+
+axes[1].imshow(blurred_image)
+axes[1].set_title("Image with GaussianBlur (radius=15)")
+axes[1].axis("off")
