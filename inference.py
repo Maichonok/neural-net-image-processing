@@ -53,10 +53,10 @@ def predict_top3(image):
 # Open the image and convert it to RGB format
 image = Image.open("./data/sneakers.jpg").convert("RGB")
 
-# Apply Gaussian blur with a strong blur effect (radius=15)
-blurred_image = image.filter(ImageFilter.GaussianBlur(radius=15))
+# Apply Gaussian blur with radius=10 to the image
+blurred_image = image.filter(ImageFilter.GaussianBlur(radius=10))
 
-# Get the top 3 predictions for the original and blurred images
+# Compare predictions for the original image and the blurred image
 original_pred = predict_top3(image)
 blurred_pred = predict_top3(blurred_image)
 
@@ -71,5 +71,9 @@ axes[0].set_title("Original Image")
 axes[0].axis("off")
 
 axes[1].imshow(blurred_image)
-axes[1].set_title("Image with GaussianBlur (radius=15)")
+axes[1].set_title("Image with GaussianBlur (radius=10)")
 axes[1].axis("off")
+
+plt.suptitle("Comparison of Original and Blurred Images", fontsize=16)
+plt.tight_layout()
+plt.show()
