@@ -27,22 +27,24 @@ input_tensor = preprocess(image).unsqueeze(0)
 def visualize_layer_activations(model, image_tensor, layer_name='layer1'):
     activations = {}
 
-    # Hook function to store the output of the selected layer
     def hook_fn(module, input, output):
         activations[layer_name] = output
 
-    # Register the hook for the selected layer
+    # Register the hook inside the function using layer_name
     if layer_name == 'layer1':
         model.layer1.register_forward_hook(hook_fn)
+    elif layer_name == 'layer2':
+        model.layer2.register_forward_hook(hook_fn)
+    elif layer_name == 'layer3':
+        model.layer3.register_forward_hook(hook_fn)
+    elif layer_name == 'layer4':
+        model.layer4.register_forward_hook(hook_fn)
 
-    # Forward pass without computing gradients
     with torch.no_grad():
         _ = model(image_tensor)
 
-    # Extract the activations from the hook
     layer_activation = activations[layer_name][0].cpu().numpy()
 
-    # Plot the first 16 activation maps
     fig, axes = plt.subplots(4, 4, figsize=(12, 12))
     for i, ax in enumerate(axes.flat):
         if i < layer_activation.shape[0]:
@@ -55,5 +57,5 @@ def visualize_layer_activations(model, image_tensor, layer_name='layer1'):
     plt.subplots_adjust(top=0.95)
     plt.show()
 
-# Visualize activations for an early layer (basic features)
-visualize_layer_activations(model, input_tensor, 'layer1')
+# Call the function
+visualize_layer_activations(model, input_tensor, 'layer4')
