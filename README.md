@@ -1,3 +1,7 @@
+## Overview
+
+The initial layers of ResNet extract low-level features such as edges, textures, and colors. These features serve as the foundational building blocks for image understanding. As the network deepens, subsequent layers progressively combine and abstract these low-level features into high-level semantic representations that reflect the meaning and composition of whole objects within the image. This hierarchical feature extraction is fundamental to the success of deep convolutional neural networks like ResNet in visual recognition tasks.
+
 ## Key Stages of Image Preprocessing for Neural Networks
 
 `Resize` → `CenterCrop` → `ToTensor` → `Normalize`
