@@ -10,8 +10,7 @@ model.eval()
 
 print("Model and tokenizer loaded successfully!")
 
-# Example text in Russian
-text = "Эта гитара оставила у меня исключительно положительные впечатления!"
+text = "This guitar left me with exclusively positive impressions!"
 
 # Tokenization with padding and truncation
 inputs = tokenizer(

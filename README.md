@@ -16,3 +16,11 @@ This project uses the **ResNet** architecture as the neural network model.
 - Conducted experiments to assess how **noise, blurring, and imperfect cropping** affect the model's prediction confidence and probability distribution.
 - Demonstrated the importance of **high‑quality image preprocessing** and why ResNet is sensitive to image details.
 - Explored methods to **improve robustness** and classification accuracy for new or domain‑specific images.
+
+## Sentiment Prediction in Action
+
+| Class | Sentiment |
+| ----- | --------- |
+| 0     | NEUTRAL   |
+| 1     | POSITIVE  |
+| 2     | NEGATIVE  |
